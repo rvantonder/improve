@@ -2,5 +2,7 @@
 
 [![Build Status](https://secure.travis-ci.org/rvantonder/improve.png?branch=master)](http://travis-ci.org/rvantonder/improve)
 
-Coverity Scan:
-[![Coverity Scan Build Status](https://scan.coverity.com/projects/1102/badge.svg)](https://scan.coverity.com/projects/1102)
+<a href="https://scan.coverity.com/projects/rvantonder-improve">
+  <img alt="Coverity Scan Build Status"
+       src="https://scan.coverity.com/projects/15121/badge.svg"/>
+</a>
