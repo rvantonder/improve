@@ -1,0 +1,27 @@
+language: c
+
+compiler:
+  - gcc
+  - clang
+  
+os:
+  - linux
+  
+notifications:
+  email: rvantonder@gmail.com
+  
+addons:
+  coverity_scan:
+    project:
+      name: "rvantonder/improve"
+      description: "Build submitted via Travis CI"
+      notification_email: rvantonder@gmail.com
+      build_command_prepend: "./configure; make clean"
+      build_command: "make -j 4"
+      branch_pattern: coverity_scan
+      
+before_script:
+  - ./travis/compile.sh
+  
+script:
+  - exit 0
