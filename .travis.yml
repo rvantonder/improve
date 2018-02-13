@@ -8,6 +8,25 @@ os:
 
 notifications:
   email: rvantonder@gmail.com
+  
+env:
+  global:
+   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+   #   via the "travis encrypt" command using the project repo's public key
+   - secure: "Q/5eydNqTqGN2PIKabrU/PJj5mDs7+dphWKIErTbAX2JY8KyJb82XV9hYJYv614r3laJl2dDuqnP65HbLWbKohxWynnw8N0hXG6Mc3KA/BOrwY9ub8edOQYewZHFlJn/ANlcbhJ45QNWInS5o1UjoJ55Y4VL+uCrOxrLhBxLMEk="
+
+before_install:
+  - echo -n | openssl s_client -connect https://scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
+
+addons:
+  coverity_scan:
+    project:
+      name: "rvantonder/improve"
+      description: "description"
+    notification_email: rvantonder@gmail.com
+    build_command_prepend: "make clean"
+    build_command: "make -j2"
+    branch_pattern: coverity_scan
 
 script:
   - make -j2   
