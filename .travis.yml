@@ -2,26 +2,31 @@ language: c
 
 compiler:
   - gcc
-  - clang
   
 os:
   - linux
-  
+
 notifications:
   email: rvantonder@gmail.com
-  
+
+env:
+  global:
+   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+   #   via the "travis encrypt" command using the project repo's public key
+   - secure: "c/U2PcDxYw9iFONwDRMyz7WdmWKIU0Ok0bdTqAqjDxieqIrkcrB1qkZD/FXOdYZ9Bl5txE8JAZKQlcHFwiLiwTZYdozwmLEteL7oakykIobW9ANrsSHraAsaBKBQc5g2A0xckNwITSgb6wydZERmm6LY3PSFoF8M566ZzVezDFU="
+
+before_install:
+  - echo -n | openssl s_client -connect https://scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
+
 addons:
   coverity_scan:
     project:
       name: "rvantonder/improve"
-      description: "Build submitted via Travis CI"
-      notification_email: rvantonder@gmail.com
-      build_command_prepend: "make clean"
-      build_command: "make -j 4"
-      branch_pattern: coverity_scan
-      
-before_script:
-  - ./travis/compile.sh
-  
+      description: "Coverity scan"
+    notification_email: rvantonder@gmail.com
+    build_command_prepend: "make clean"
+    build_command: "make -j2"
+    branch_pattern: master
+
 script:
-  - exit 0
+  - make -j2   
